@@ -1,16 +1,8 @@
 # Webpack ES6 boilerplate
 
-[![tests][tests]][tests-url]
-[![coverage][cover]][cover-url]
-
-A minimalistic Webpack 2 ES6 boilerplate project.
-
-## Prerequisites
-
-[![node][node]][node-url]
-[![npm][npm]][npm-url]
-      
-- [Node.js](http://es6-features.org)
+## Requirements
+1. [node v8.12.0 or later](https://nodejs.org/en/)
+2. [yarn](https://yarnpkg.com/)
 
 ## Features
 
@@ -24,22 +16,32 @@ A minimalistic Webpack 2 ES6 boilerplate project.
 - [Jest](https://facebook.github.io/jest/docs/en/getting-started.html) (v20.0.4)
 - [Sass](http://sass-lang.com/guide)
 
-## Start Dev Server
+## Getting started
 
-1. `git clone https://github.com/jluccisano/webpack-es6-boilerplate.git`
-2. Run `npm install`
-3. Start the dev server using `npm start`
-3. Open [http://localhost:9000](http://localhost:9000)
+Two simple steps to start:
 
+1. Install the required libraries.
+    ```shell
+    yarn start
+    ```
+2. Install the dependencies if you don't already have them.
 
-## Commands
+## Usage
 
-- `npm start` - start the dev server
-- `npm run build` - create build in `dist` folder
-- `npm run lint` - run an ESLint check
-- `npm run coverage` - run code coverage and generate report in the `coverage` folder
-- `npm test` - run all tests
-- `npm run test:watch` - run all tests in watch mode
+### Start Dev Server
+To develop using Webpack ES6 boilerplate, run:
+```shell
+yarn start
+```
+
+### Commands
+
+- `yarn start` - start the dev server
+- `yarn run build` - create build in `dist` folder (remember to run it before commit)
+- `yarn run lint` - run an ESLint check
+- `yarn run coverage` - run code coverage and generate report in the `coverage` folder
+- `yarn test` - run all tests
+- `yarn run test:watch` - run all tests in watch mode
 
 ## Licence
 

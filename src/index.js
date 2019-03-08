@@ -1,6 +1,2 @@
-import sayHello from './hello';
-import './index.scss';
-
-document.getElementById('root').innerHTML = sayHello();
-
-
+import './scss/main.scss'
+import './js/app.js'

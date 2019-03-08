@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Index of scss files
+   ========================================================================== */
+
+/* External
+   ========================================================================== */
+// Normalize
+@import url("../../node_modules/normalize.css/normalize.css"); // Absolute paths to node_modules/ cause build errors on windows.
+// Breakpoints
+@import "../../node_modules/include-media/dist/_include-media";  // Absolute paths to node_modules/ cause build errors on windows.
+
+/* Base
+   ========================================================================== */
+@import "base/variables";
+@import "base/functions";
+@import "base/media-config";
+@import "base/mixins";
+@import "base/typography";
+@import "base/ui";
+
+/* Layout and sections
+   ========================================================================== */
+@import "layout/footer";
+@import "layout/header";
+@import "layout/inner";
+@import "layout/main";
+@import "layout/sections";
+
+/* Components
+   ========================================================================== */
+@import "components/forms";
+@import "components/logo";
