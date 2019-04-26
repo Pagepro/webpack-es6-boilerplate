@@ -2,28 +2,48 @@ const webpack = require('webpack')
 const path = require('path')
 const Merge = require('webpack-merge')
 const CommonConfig = require('./webpack.common.js')
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-
-const HOST = process.env.HOST || 'localhost'
-const PORT = process.env.PORT || 8080
-const PROXY = 'http://localhost:3100/'
+const autoprefixer = require('autoprefixer')
 
 module.exports = Merge(CommonConfig, {
+  module: {
+    rules: [{
+      test: /\.scss$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true,
+            url: false
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: () => [autoprefixer({grid: true})]
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true
+          }
+        }
+      ]
+    }],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new BrowserSyncPlugin(
-      {
-        host: HOST,
-        port: PORT,
-        proxy: PROXY
-      }
-    )
   ],
   devServer: {
-    contentBase: [ path.join(process.cwd(), 'dist'), path.join(process.cwd(), 'src') ], // static file location
+    contentBase: [
+      path.join(process.cwd(), 'dist'),
+      path.join(process.cwd(), 'src/templates/')
+    ], // static file location
     noInfo: false,
     stats: 'minimal',
+    inline: true,
     hot: true,
-    inline: true
+    watchContentBase: true,
   }
 })
