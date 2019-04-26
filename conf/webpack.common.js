@@ -3,11 +3,9 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const autoprefixer = require('autoprefixer')
 const glob = require('glob')
 
-const htmlPlugins = glob.sync(path.join(process.cwd(), 'src/**/*.html'))
+const htmlPlugins = glob.sync(path.join(process.cwd(), 'src/templates/**/*.html'))
   .map(htmlFileFullPath => {
     const [
       , htmlFilePath
@@ -15,13 +13,45 @@ const htmlPlugins = glob.sync(path.join(process.cwd(), 'src/**/*.html'))
 
     return new HtmlWebpackPlugin({
       template: htmlFilePath,
-      filename: htmlFilePath
+      filename: htmlFilePath.split('templates/')[1],
+      inject: 'body'
     })
   })
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].css'
-})
+// let scssLoader = [
+//   'style-loader',
+//   {
+//     loader: 'css-loader',
+//     options: {
+//       sourceMap: true,
+//       url: false
+//     }
+//   },
+//   {
+//     loader: 'postcss-loader',
+//     options: {
+//       plugins: () => [autoprefixer({grid: true})]
+//     }
+//   },
+//   {
+//     loader: 'sass-loader',
+//     options: {
+//       sourceMap: true
+//     }
+//   }
+// ]
+
+// if (process.env.NODE_ENV === 'production') {
+//   scssLoader = ExtractTextPlugin.extract({
+//     fallback: 'style-loader',
+//     use: scssLoader
+//   })
+// }
+
+// const extractSass = new ExtractTextPlugin({
+//   filename: '[name].css',
+//   // disable: process.env.NODE_ENV === 'development'
+// })
 
 module.exports = {
 
@@ -54,34 +84,7 @@ module.exports = {
           presets: ['env']
         }
       }
-    },
-    {
-      test: /\.scss$/,
-      use: extractSass.extract({
-        use: [{
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-            url: false
-          }
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => [autoprefixer({grid: true})]
-          }
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true
-          }
-        }
-        ],
-        // use style-loader in development
-        fallback: 'style-loader'
-      })
-    }]
+    }],
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {root: process.cwd()}),
@@ -105,6 +108,5 @@ module.exports = {
       jQuery: 'jquery'
     }),
     ...htmlPlugins,
-    extractSass
   ]
 }
